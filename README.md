@@ -86,3 +86,73 @@ for more detailed configuration, please refer to the official guide of NVIDIA RA
 
 for TPCxBB benchmarking, please refer to this [guide](https://github.com/NVIDIA/spark-rapids/tree/main/integration_tests) 
 
+
+
+## Launching Spark in master-slave mode
+
+Allocate nodes for master and slaves, in this step, the Spark frame work is not yet started:
+
+```bash
+#run this command as many times as you want for the total number of nodes
+ srun --partition=batch --mem=16000 -n1 -N1 --pty --preserve-env $SHELL
+```
+
+mapping the localhost:8080 to spark-webui port:
+
+```bash
+ ssh -N -L localhost:8080:10.3.1.XX:8080 username@cluster.address
+```
+
+configure ``` $SPARK_HOME/conf/slaves```, for the initial installation, just create one file called ``` slaves``` we will using ``` $SPARK_HOME/sbin/start-slaves.sh``` to start all slave node at once:
+
+```bash
+# put the ip address of slaves
+10.3.1.XX
+10.3.1.XX
+10.3.1.XX
+10.3.1.XX
+```
+
+create 	```spark-env.sh```
+
+```bash
+#copy from the spark-env.sh.template
+cp $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh
+
+```
+
+add slave launch configuration, you may just find the corresponding lines and change the line, the amount should not exceed the total number of gpu that the cluster has no the worker node which allocated:
+
+```bash
+SPARK_WORKER_OPTS="-Dspark.worker.resource.gpu.amount=1 -Dspark.worker.resource.gpu.discoveryScript=$SPARK_HOME/conf/getGpusResources.sh"
+```
+
+
+
+copy GPU discovery script into ```$SPARK_HOME/conf/```:
+
+```bash
+cp $SPARK_HOME/examples/src/main/scripts/getGpusResources.sh $SPARK_HOME/conf/getGpusResources.sh
+```
+
+Start master node, master node don't have anything to do with GPU, but it is recommended to allocate the master node exclude header node:
+
+```
+$SPARK_HOME/sbin/start-master.sh
+```
+
+Start slave nodes, if GPU access is desired, each slave node should have at least one GPU:
+
+```bash
+$SPARK_HOME/sbin/start-slaves.sh
+```
+
+One important thing to check before submitting jobs is the log of each node, make sure everything is successfully connected. If any node fails, just use the ```stop-all.sh``` to stop them and restart again.
+
+Once you have the successful connection, then you can go to the ```localhost:8080``` to see the status of the cluster, you should get a web page that is similar like this.
+
+![image-20201009115106926](C:\Users\70455\Documents\GitHub\NVIDIA_RAPIDS_setup_guide_in_RI2\image-20201009115106926.png)
+
+two thing important is that: 1) make sure all worker are show up on the webpage, 2)  on the resource slot, the GPU should show up. 
+
+Till now, the setup part is done. in order to submit the job, refer this [guide](./document.pdf)
