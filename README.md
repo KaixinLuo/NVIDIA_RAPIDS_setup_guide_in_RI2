@@ -147,7 +147,7 @@ Start slave nodes, if GPU access is desired, each slave node should have at leas
 $SPARK_HOME/sbin/start-slaves.sh
 ```
 
-One important thing to check before submitting jobs is the log of each node, make sure everything is successfully connected. If any node fails, just use the ```stop-all.sh``` to stop them and restart again.
+One important thing to check before submitting jobs is the log of each node, make sure everything is successfully connected. If any node fails, just use the ```stop-all.sh``` to stop them and restart again, for more detailed guide, please refer to this [guide](https://nvidia.github.io/spark-rapids/docs/get-started/getting-started-on-prem.html).
 
 Once you have the successful connection, then you can go to the ```localhost:8080``` to see the status of the cluster, you should get a web page that is similar like this.
 
