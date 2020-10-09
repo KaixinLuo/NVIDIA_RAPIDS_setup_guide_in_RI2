@@ -153,6 +153,6 @@ Once you have the successful connection, then you can go to the ```localhost:808
 
 ![image-20201009115106926](C:\Users\70455\Documents\GitHub\NVIDIA_RAPIDS_setup_guide_in_RI2\image-20201009115106926.png)
 
-two thing important is that: 1) make sure all worker are show up on the webpage, 2)  on the resource slot, the GPU should show up. 
+Two things important are here: 1) make sure all worker are show up on the webpage, 2)  on the resource slot, the GPU should show up. 
 
-Till now, the setup part is done. in order to submit the job, refer this [guide](./document.pdf)
+Till now, the setup part is done. in order to submit the job, refer this [guide](./document.pdf).
