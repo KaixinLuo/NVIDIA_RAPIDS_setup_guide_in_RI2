@@ -151,7 +151,7 @@ One important thing to check before submitting jobs is the log of each node, mak
 
 Once you have the successful connection, then you can go to the ```localhost:8080``` to see the status of the cluster, you should get a web page that is similar like this.
 
-![image-20201009115106926](C:\Users\70455\Documents\GitHub\NVIDIA_RAPIDS_setup_guide_in_RI2\image-20201009115106926.png)
+![image-20201009115106926](./image-20201009115106926.png)
 
 Two things important are here: 1) make sure all worker are show up on the webpage, 2)  on the resource slot, the GPU should show up. 
 
