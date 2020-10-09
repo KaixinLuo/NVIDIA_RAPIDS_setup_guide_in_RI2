@@ -1,4 +1,4 @@
-# NVIDIA RAPIDS setup guide in RI2
+# NVIDIA RAPIDS setup guide in Spark
 
 This is a general guide line about how to setup RAPIDS in RI2 cluster.
 
